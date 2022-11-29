@@ -1,9 +1,6 @@
-import 'package:exercise/screens/app_menu_drawer.dart';
 import 'package:exercise/screens/balance_screen.dart';
 import 'package:exercise/screens/pay_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,8 +14,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
-    print(index);
-
     setState(() {
       _selectedIndex = index;
     });
@@ -30,12 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(child: bottomNaviPage()),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-            primaryColor: Colors.red,
-            textTheme: Theme.of(context).textTheme.copyWith(
-                caption: TextStyle(
-                    color: Colors
-                        .yellow))), // sets the inactive color of the `BottomNavigationBar`
-
+          primaryColor: Colors.blue,
+        ),
         child: BottomNavigationBar(
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.grey,
@@ -100,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _pages = <Widget>[
     BalanceScreen(),
     PayTabScreen(),
-    // Camera page
-    // Chats page
+    PayTabScreen(), // sent screen
+    PayTabScreen(), // history screen
+    PayTabScreen(), // more screen
   ];
 }

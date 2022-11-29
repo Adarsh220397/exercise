@@ -1,9 +1,9 @@
 import 'package:exercise/services/client_service.dart';
-import 'package:exercise/services/models/recent_job_model.dart';
+import 'package:exercise/services/models/transaction_history_model.dart';
+import 'package:exercise/utils/global_variables.dart';
+import 'package:exercise/widgets/tab_indicator_decorator_widget.dart';
 import 'package:exercise/widgets/transaction_history_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BalanceScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class BalanceScreen extends StatefulWidget {
 
 class _BalanceScreenState extends State<BalanceScreen> {
   late ThemeData themeData;
-  List<RecentJobModel> transactionHistoryList = [];
+  List<TransactionHistoryModel> transactionHistoryList = [];
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
     fetchData();
   }
 
-  fetchData() async {
+  Future<void> fetchData() async {
     transactionHistoryList = await ClientService.instance.getTransactionData();
 
     setState(() {});
@@ -46,14 +46,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 child: Column(
                   children: [
                     Container(
-                      color: const Color.fromARGB(255, 4, 42, 73),
+                      color: AppConstants.appColor,
                       height: MediaQuery.of(context).size.height / 8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const Icon(
                             FontAwesomeIcons.sliders,
-                            color: Color.fromARGB(255, 155, 176, 187),
+                            color: AppConstants.lightWhiteColor,
                             size: 20.0,
                           ),
                           SizedBox(
@@ -62,12 +62,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                               unselectedLabelColor: Colors.blueGrey,
                               indicatorPadding:
                                   EdgeInsets.only(left: 30, right: 30),
-                              indicatorColor:
-                                  Color.fromARGB(255, 155, 176, 187),
+                              indicatorColor: AppConstants.lightWhiteColor,
                               indicator: DotIndicator(
-                                  color: Color.fromARGB(255, 155, 176, 187),
+                                  color: AppConstants.lightWhiteColor,
                                   radius: 3),
-                              labelColor: Color.fromARGB(255, 155, 176, 187),
+                              labelColor: AppConstants.lightWhiteColor,
                               isScrollable: true,
                               labelStyle:
                                   TextStyle(fontWeight: FontWeight.bold),
@@ -98,74 +97,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           : MediaQuery.of(context).size.height / 2,
                       child: TabBarView(
                         children: [
-                          Container(
-                            color: const Color.fromARGB(255, 4, 42, 73),
-                            height: MediaQuery.of(context).size.height / 3,
-                            width: 200,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                dataRowUI(),
-                                SizedBox(
-                                  height: currentWidth > 1200
-                                      ? currentWidth > 600
-                                          ? 70
-                                          : 20
-                                      : 20,
-                                ),
-                                Container(
-                                  //   color: Colors.amber,
-                                  height: currentWidth > 1200
-                                      ? 100
-                                      : currentWidth > 600
-                                          ? 70
-                                          : 70,
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        iconData(
-                                          'Load',
-                                          const CircleAvatar(
-                                            backgroundColor: Colors.blue,
-                                            radius: 25,
-                                            child: Icon(
-                                              FontAwesomeIcons.plus,
-                                              color: Colors.white,
-                                              size: 25,
-                                            ),
-                                          ),
-                                        ),
-                                        iconData(
-                                          'Exchange',
-                                          const CircleAvatar(
-                                            backgroundColor: Colors.blue,
-                                            radius: 25,
-                                            child: Icon(
-                                              FontAwesomeIcons.sync,
-                                              color: Colors.white,
-                                              size: 25,
-                                            ),
-                                          ),
-                                        )
-                                      ]),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            color: Colors.green,
-                          ),
-                          Container(
-                            color: Colors.pink,
-                          ),
-                          Container(
-                            color: Colors.red,
-                          )
+                          tabBarUI(),
+                          tabBarUI(),
+                          tabBarUI(),
+                          tabBarUI()
                         ],
                       ),
                     ),
@@ -199,7 +134,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                   ],
                                 ),
                               ),
-                              for (RecentJobModel history
+                              for (TransactionHistoryModel history
                                   in transactionHistoryList)
                                 UserTransactionHistoryWidget(
                                   amount: history.amount,
@@ -223,56 +158,120 @@ class _BalanceScreenState extends State<BalanceScreen> {
         )));
   }
 
-  Widget dataRowUI() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget tabBarUI() {
+    final currentWidth = MediaQuery.of(context).size.width;
+    return Container(
+      color: AppConstants.appColor,
+      height: MediaQuery.of(context).size.height / 3,
+      width: 250,
+      child: Column(
         children: [
-          const Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.blueGrey,
+          const SizedBox(
+            height: 10,
           ),
-          currencyDataUI(),
-          const Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.blueGrey,
+          dataRowUI(),
+          SizedBox(
+            height: currentWidth > 1200
+                ? currentWidth > 600
+                    ? 70
+                    : 20
+                : 20,
           ),
+          SizedBox(
+            height: currentWidth > 1200
+                ? 100
+                : currentWidth > 600
+                    ? 70
+                    : 70,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  iconData(
+                    'Load',
+                    const CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      radius: 25,
+                      child: Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                  iconData(
+                    'Exchange',
+                    const CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      radius: 25,
+                      child: Icon(
+                        FontAwesomeIcons.sync,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+                  )
+                ]),
+          ),
+          const SizedBox(height: 20)
         ],
       ),
     );
   }
 
+  Widget dataRowUI() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.blueGrey,
+            ),
+            Container(child: currencyDataUI()),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.blueGrey,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget currencyDataUI() {
+    final currentWidth = MediaQuery.of(context).size.width;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 '\$',
                 style: TextStyle(
-                    fontSize: 24,
-                    color: Color.fromARGB(255, 155, 176, 187),
+                    fontSize: currentWidth > 600 ? 20 : 16,
+                    color: AppConstants.lightWhiteColor,
                     fontWeight: FontWeight.bold),
               ),
-              const Text(
+              Text(
                 '124.99',
                 style: TextStyle(
-                    fontSize: 34,
-                    color: Color.fromARGB(255, 155, 176, 187),
+                    fontSize: currentWidth > 600 ? 40 : 34,
+                    color: AppConstants.lightWhiteColor,
                     fontWeight: FontWeight.normal),
               ),
               Column(
-                children: const [
+                children: [
                   SizedBox(
-                    height: 5,
+                    height: currentWidth > 600 ? 7 : 5,
                   ),
-                  Text(
+                  const Text(
                     'USD',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
@@ -284,11 +283,13 @@ class _BalanceScreenState extends State<BalanceScreen> {
               )
             ],
           ),
-          const Text(
-            'USh 462933.80',
-            style: TextStyle(
-              // fontSize: 34,
-              color: Colors.blueGrey,
+          Flexible(
+            child: Text(
+              'USh 462933.80',
+              style: TextStyle(
+                fontSize: currentWidth > 600 ? 18 : 16,
+                color: Colors.blueGrey,
+              ),
             ),
           )
         ]);
@@ -315,47 +316,6 @@ class _BalanceScreenState extends State<BalanceScreen> {
           )
         ],
       ),
-    );
-  }
-}
-
-class DotIndicator extends Decoration {
-  const DotIndicator({
-    this.color = Colors.white,
-    this.radius = 4.0,
-  });
-  final Color color;
-  final double radius;
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _DotPainter(
-      color: color,
-      radius: radius,
-      onChange: onChanged,
-    );
-  }
-}
-
-class _DotPainter extends BoxPainter {
-  _DotPainter({
-    required this.color,
-    required this.radius,
-    VoidCallback? onChange,
-  })  : _paint = Paint()
-          ..color = color
-          ..style = PaintingStyle.fill,
-        super(onChange);
-  final Paint _paint;
-  final Color color;
-  final double radius;
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    assert(configuration.size != null);
-    final Rect rect = offset & configuration.size!;
-    canvas.drawCircle(
-      Offset(rect.bottomCenter.dx, rect.bottomCenter.dy - radius),
-      radius,
-      _paint,
     );
   }
 }

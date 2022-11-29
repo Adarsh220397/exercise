@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class UserTransactionHistoryWidget extends StatefulWidget {
@@ -72,9 +71,9 @@ class _UserTransactionHistoryWidgetState
                       backgroundColor:
                           widget.btransactionStatus ? Colors.blue : Colors.red,
                       child: widget.btransactionStatus
-                          ? Icon(Icons.arrow_forward,
+                          ? const Icon(Icons.arrow_forward,
                               color: Colors.white, size: 7)
-                          : Icon(Icons.arrow_back,
+                          : const Icon(Icons.arrow_back,
                               color: Colors.white, size: 7),
                     ),
                   )

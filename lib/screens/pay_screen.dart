@@ -1,10 +1,8 @@
 import 'package:exercise/services/models/category_model.dart';
+import 'package:exercise/utils/global_variables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../services/client_service.dart';
 import '../widgets/progress_widget.dart';
 
@@ -20,7 +18,7 @@ class _PayTabScreenState extends State<PayTabScreen> {
 
   bool isShowLoading = false;
 
-  List<AllCategoryModel> list = [];
+  List<PaymentCategoryModel> list = [];
 
   @override
   void initState() {
@@ -28,15 +26,10 @@ class _PayTabScreenState extends State<PayTabScreen> {
     fetchData();
   }
 
-  fetchData() async {
+  Future<void> fetchData() async {
     isShowLoading = true;
-    list = await ClientService.instance.getCategoriesData();
+    list = await ClientService.instance.getPaymentInfoData();
 
-    print(list.length);
-
-    for (AllCategoryModel i in list) {
-      print(i.title);
-    }
     isShowLoading = false;
     setState(() {});
   }
@@ -70,7 +63,7 @@ class _PayTabScreenState extends State<PayTabScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 5,
             child: Container(
-              color: const Color.fromARGB(255, 4, 42, 73),
+              color: AppConstants.appColor,
               child: Column(
                 children: [
                   SizedBox(
@@ -154,7 +147,7 @@ class _PayTabScreenState extends State<PayTabScreen> {
             spacing: 3,
             runSpacing: 3,
             children: [
-              for (AllCategoryModel i in list)
+              for (PaymentCategoryModel i in list)
                 Card(
                   elevation: 5,
                   child: SizedBox(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RecentJobModel {
+class TransactionHistoryModel {
   String name;
   DateTime date;
   num amount;
@@ -8,7 +8,7 @@ class RecentJobModel {
   bool btransactionStatus;
   Color color;
 
-  RecentJobModel({
+  TransactionHistoryModel({
     required this.name,
     required this.date,
     required this.amount,
@@ -29,8 +29,8 @@ class RecentJobModel {
     return data;
   }
 
-  factory RecentJobModel.fromJson(dynamic json) {
-    return RecentJobModel(
+  factory TransactionHistoryModel.fromJson(dynamic json) {
+    return TransactionHistoryModel(
       name: json['name'] as String,
       date: json['date'] as DateTime,
       amount: json['amount'] as num,

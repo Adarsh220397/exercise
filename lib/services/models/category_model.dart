@@ -1,12 +1,11 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
-class AllCategoryModel {
+class PaymentCategoryModel {
   Icon icon;
   String title;
   Color color;
 
-  AllCategoryModel({
+  PaymentCategoryModel({
     required this.icon,
     required this.title,
     required this.color,
@@ -21,8 +20,8 @@ class AllCategoryModel {
     return data;
   }
 
-  factory AllCategoryModel.fromJson(dynamic json) {
-    return AllCategoryModel(
+  factory PaymentCategoryModel.fromJson(dynamic json) {
+    return PaymentCategoryModel(
       icon: json['icon'] as Icon,
       title: json['title'] as String,
       color: json['color'] as Color,
