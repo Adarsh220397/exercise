@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../services/client_service.dart';
 import '../widgets/progress_widget.dart';
@@ -62,31 +63,46 @@ class _PayTabScreenState extends State<PayTabScreen> {
         Positioned(
             top: MediaQuery.of(context).size.height / 10,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height - 160,
             child: formUI()),
         Positioned(
             top: 0,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 5,
             child: Container(
-              color: Colors.blue,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              color: const Color.fromARGB(255, 4, 42, 73),
+              child: Column(
                 children: [
                   SizedBox(
-                    width: 10,
+                    height: 30,
                   ),
-                  Text(
-                    'Pay',
-                    style: themeData.textTheme.headline6!
-                        .copyWith(color: Colors.white),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'Pay',
+                        style: themeData.textTheme.headline5!.copyWith(
+                          color: Color.fromARGB(255, 155, 176, 187),
+                        ),
+                      ),
+                      const Icon(
+                        FontAwesomeIcons.ellipsisVertical,
+                        color: Color.fromARGB(255, 155, 176, 187),
+                      )
+                    ],
                   ),
-                  Icon(Icons.menu)
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
                 ],
               ),
             )),
         Positioned(
-            top: MediaQuery.of(context).size.height / 6.5,
+            top: MediaQuery.of(context).size.height / 9,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 5,
             child: SingleChildScrollView(
@@ -107,7 +123,7 @@ class _PayTabScreenState extends State<PayTabScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Card(
                     elevation: 10,
@@ -128,67 +144,68 @@ class _PayTabScreenState extends State<PayTabScreen> {
   Widget formUI() {
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        //  crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            //   padding: EdgeInsets.all(MediaQuery.of(context).size.width / 10),
-            decoration: const BoxDecoration(
-                //  color: Colors.red,
-                // borderRadius: BorderRadius.only(
-                //     topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 3.5,
-                  ),
-                  Center(
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 4.5,
+          ),
+          Wrap(
+            spacing: 3,
+            runSpacing: 3,
+            children: [
+              for (AllCategoryModel i in list)
+                Card(
+                  elevation: 5,
+                  child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        for (AllCategoryModel i in list)
-                          Container(
-                            color: i.color,
-                            child: Column(
-                              children: [
-                                i.icon,
-                                Text(i.title),
-                              ],
-                            ),
-                            height: 100,
-                            width: 100,
-                          )
+                        i.title == 'Mobile'
+                            ? SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: Image.asset(
+                                  'assets/imgs/mobile.png',
+                                  color: i.color,
+                                ))
+                            : i.title == 'Landline'
+                                ? SizedBox(
+                                    height: 40,
+                                    width: 40,
+                                    child: Image.asset(
+                                      'assets/imgs/telephone.png',
+                                      //color: i.color,
+                                    ))
+                                : i.title == 'Donation'
+                                    ? SizedBox(
+                                        height: 40,
+                                        width: 40,
+                                        child: Image.asset(
+                                          'assets/imgs/donation.png',
+                                          //   color: i.color,
+                                        ))
+                                    : i.title == 'Electric'
+                                        ? SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                            child: Image.asset(
+                                              'assets/imgs/lightbulbonpng.png',
+                                              //   color: i.color,
+                                            ))
+                                        : i.icon,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(i.title),
                       ],
                     ),
-                  )
-                  // GridView.count(
-                  //   crossAxisCount: 3,
-                  //   crossAxisSpacing: 4.0,
-                  //   mainAxisSpacing: 8.0,
-                  //   children: List.generate(list.length, (index) {
-                  //     return Container(
-                  //         height: 100,
-                  //         width: 100,
-                  //         color: Colors.green,
-                  //         child: Column(
-                  //           children: [
-                  //             // SizedBox(
-                  //             //     height: 100,
-                  //             //     width: 100,
-                  //             //     child: list[index].image),
-                  //             //Text(list[index].title)
-                  //           ],
-                  //         ));
-                  //   }),
-                  // )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                )
+            ],
+          )
         ],
       ),
     );

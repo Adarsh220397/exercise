@@ -3,6 +3,7 @@ import 'package:exercise/services/models/job_match_data_model.dart';
 
 import 'package:exercise/services/models/recent_job_model.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ClientService {
   ClientService._internal();
@@ -11,41 +12,96 @@ class ClientService {
   Future<List<AllCategoryModel>> getCategoriesData() async {
     List<AllCategoryModel> categoriesList = [
       AllCategoryModel(
-          icon: const Icon(Icons.mobile_friendly_sharp),
+          icon: const Icon(Icons.mobile_friendly_sharp, color: Colors.pink),
           title: 'Mobile',
           color: Colors.pink),
       AllCategoryModel(
-          icon: Icon(Icons.phone), title: 'Landline', color: Colors.blue),
+          icon: const Icon(
+            FontAwesomeIcons.phone,
+            color: Colors.blue,
+            size: 30,
+          ),
+          title: 'Landline',
+          color: Colors.blue),
       AllCategoryModel(
-          icon: Icon(Icons.sim_card_download_sharp),
+          icon: const Icon(
+            FontAwesomeIcons.usb,
+            color: Colors.purple,
+            size: 30,
+          ),
           title: 'Data Card',
           color: Colors.purple),
       AllCategoryModel(
-          icon: Icon(Icons.wifi), title: 'Internet', color: Colors.pink),
+          icon: const Icon(
+            FontAwesomeIcons.wifi,
+            color: Colors.pink,
+            size: 30,
+          ),
+          title: 'Internet',
+          color: Colors.pink),
       AllCategoryModel(
-          icon: Icon(Icons.mobile_friendly_sharp),
-          title: 'Mobile',
-          color: Colors.blue),
+          icon: const Icon(
+            Icons.cell_tower,
+            color: Colors.teal,
+            size: 30,
+          ),
+          title: 'Cable Tv',
+          color: Colors.teal),
       AllCategoryModel(
-          icon: Icon(Icons.cell_tower), title: 'Cable Tv', color: Colors.teal),
+          icon: const Icon(
+            Icons.movie,
+            color: Colors.red,
+            size: 30,
+          ),
+          title: 'Entertainment',
+          color: Colors.red),
       AllCategoryModel(
-          icon: Icon(Icons.movie), title: 'Entertainment', color: Colors.red),
+          icon: const Icon(
+            FontAwesomeIcons.solidLightbulb,
+            color: Colors.yellow,
+            size: 30,
+          ),
+          title: 'Electric',
+          color: Colors.yellow),
       AllCategoryModel(
-          icon: Icon(Icons.light), title: 'Electric', color: Colors.yellow),
+          icon: const Icon(
+            FontAwesomeIcons.bookOpen,
+            color: Colors.red,
+            size: 30,
+          ),
+          title: 'School',
+          color: Colors.red),
       AllCategoryModel(
-          icon: Icon(Icons.book), title: 'School', color: Colors.red),
+          icon: const Icon(
+            Icons.church,
+            color: Colors.teal,
+            size: 30,
+          ),
+          title: 'Church',
+          color: Colors.teal),
       AllCategoryModel(
-          icon: Icon(Icons.church), title: 'Church', color: Colors.teal),
-      AllCategoryModel(
-          icon: Icon(Icons.health_and_safety_rounded),
+          icon: const Icon(
+            Icons.health_and_safety_rounded,
+            size: 30,
+          ),
           title: 'Donation',
           color: Colors.pink),
       AllCategoryModel(
-          icon: Icon(Icons.badge), title: 'Merchants', color: Colors.blue),
+          icon: const Icon(
+            FontAwesomeIcons.basketShopping,
+            color: Colors.blue,
+            size: 30,
+          ),
+          title: 'Merchants',
+          color: Colors.blue),
       AllCategoryModel(
-          icon: Icon(Icons.tab, color: Colors.red),
+          icon: const Icon(
+            FontAwesomeIcons.screwdriverWrench,
+            color: Colors.purple,
+            size: 30,
+          ),
           title: 'Utility',
-          color: Colors.red),
+          color: Colors.purple),
     ];
 
     return categoriesList;
@@ -54,26 +110,33 @@ class ClientService {
   Future<List<RecentJobModel>> getTransactionData() async {
     List<RecentJobModel> recentJobsList = [
       RecentJobModel(
-          amount: 2000,
-          btransactionStatus: true,
-          currency: 'INR',
-          date: DateTime.now(),
-          name: 'Adarsh',
+          amount: 45000,
+          btransactionStatus: false,
+          currency: 'ZAR',
+          date: DateTime.utc(2018, 03, 9),
+          name: 'Christine Chaka',
           color: Colors.green),
       RecentJobModel(
-          amount: 4000,
-          btransactionStatus: true,
-          currency: 'DOLLAR',
-          date: DateTime.now(),
-          name: 'Karthick',
-          color: Colors.red),
+          amount: 980000,
+          btransactionStatus: false,
+          currency: 'UGX',
+          date: DateTime.utc(2018, 03, 5),
+          name: 'Paul Kafeero',
+          color: Colors.amber),
       RecentJobModel(
-          amount: 2070,
+          amount: 53000,
           btransactionStatus: true,
-          currency: 'INR',
-          date: DateTime.now(),
-          name: 'Srini',
-          color: Colors.yellow),
+          currency: 'NGN',
+          date: DateTime.utc(2018, 03, 1),
+          name: 'Uche Ngozi',
+          color: Colors.brown),
+      RecentJobModel(
+          amount: 3200,
+          btransactionStatus: true,
+          currency: 'KES',
+          date: DateTime.utc(2018, 02, 22),
+          name: 'Gerald Kimotho',
+          color: Colors.pink),
     ];
     return recentJobsList;
   }

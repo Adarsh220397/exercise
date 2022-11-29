@@ -4,6 +4,7 @@ import 'package:exercise/screens/pay_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,53 +28,59 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: bottomNaviPage()),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          //   selectedFontSize: 20,
-          key: _scaffoldKey,
-          selectedIconTheme: const IconThemeData(
-            color: Colors.blue,
-          ),
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          unselectedLabelStyle: TextStyle(color: Colors.grey),
-          showUnselectedLabels: true,
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.balance,
-                color: Colors.grey,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+            primaryColor: Colors.red,
+            textTheme: Theme.of(context).textTheme.copyWith(
+                caption: TextStyle(
+                    color: Colors
+                        .yellow))), // sets the inactive color of the `BottomNavigationBar`
+
+        child: BottomNavigationBar(
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey,
+            unselectedLabelStyle: const TextStyle(color: Colors.grey),
+            showUnselectedLabels: true,
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            key: _scaffoldKey,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  FontAwesomeIcons.wallet,
+                  color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
+                ),
+                label: 'Balance',
               ),
-              label: 'Balance',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.payments_outlined,
-                color: Colors.grey,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.payments_outlined,
+                  color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                ),
+                label: 'Pay',
               ),
-              label: 'Pay',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.send,
-                  color: Colors.grey,
-                ),
-                label: 'Send'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.history,
-                  color: Colors.grey,
-                ),
-                label: 'History'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.more_horiz,
-                  color: Colors.grey,
-                ),
-                label: 'More'),
-          ]),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    FontAwesomeIcons.circleArrowUp,
+                    color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
+                  ),
+                  label: 'Send'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    FontAwesomeIcons.arrowRightArrowLeft,
+                    color: _selectedIndex == 3 ? Colors.blue : Colors.grey,
+                  ),
+                  label: 'History'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: _selectedIndex == 4 ? Colors.blue : Colors.grey,
+                  ),
+                  label: 'More'),
+            ]),
+      ),
     );
   }
 
